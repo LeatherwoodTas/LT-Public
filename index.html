@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeatherwoodTasmania</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #4f8d9c;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        /* Layout Container */
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+            z-index: 2;
+        }
+        /* Logo Styling */
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+        .logo-container img {
+            max-width: 280px; /* Adjust maximum width to fit your logo design */
+            height: auto;
+            display: inline-block;
+        }
+        .spacer-below {
+            margin-bottom: 1.5em; /* Adjust this value to change the spacing size */
+        }
+        /* Hazard Stripe Visual Accent */
+/*         .hazard-bar {
+            background: repeating-linear-gradient(45deg, #f4c430, #f4c430 10px, #222 10px, #222 20px);
+            height: 12px;
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #b3b3b3;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        } */
+        /* Live Countdown Timer Grid */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .time-box {
+            background-color: #2a2a2a;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f4c430;
+        }
+        .time-box label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+        }
+        /* Responsive Breakpoints */
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .countdown { gap: 0.5rem; }
+            .time-box { padding: 0.5rem; }
+            .time-box span { font-size: 1.5rem; }
+            .logo-container img { max-width: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brand Logo Placement -->
+        <div class="logo-container">
+            <!-- Replace 'logo.png' with your actual image file name and path -->
+            <img src="/images/sylcolourdraft2.png" alt="LeatherwoodTasmania">
+        </div>
+
+        <!-- Decorative Accent Line -->
+        <div class="hazard-bar"></div>
+        
+        <h1>Thank you for visiting</h1>
+        <p class="spacer-below">LeatherwoodTasmania.au is temporarily unavailable to enable a system upgrade. You will be able to access the new LeatherwoodTasmania at this link from 20 Aug</p>
+        <!-- <p>Next paragraph here.</p> -->
+        <!-- Interactive Countdown Component -->
+        <div class="countdown">
+            <div class="time-box">
+                <span id="days">00</span>
+                <label>Days</label>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <label>Hours</label>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <label>Mins</label>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <label>Secs</label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configure Launch Time
+        const launchDate = new Date("Aug 20, 2026 00:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            // Mathematical time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output values to HTML elements
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+            // Handle timer expiration
+            if (distance < 0) {
+                clearInterval(timer);
+                document.querySelector(".countdown").innerHTML = "<div style='grid-column: span 4; color: #f4c430; font-size: 1.5rem;'>We are launching now!</div>";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
